@@ -64,6 +64,7 @@ See Parser.pm for information on turning strings into MathObjects.
 
 sub String   {Value->Package("String()")->new(@_)}
 sub Real     {Value->Package("Real()")->new(@_)}
+sub CyclicRing {Value->Package("CyclicRing()")->new(@_)}
 sub Complex  {Value->Package("Complex()")->new(@_)}
 sub Point    {Value->Package("Point()")->new(@_)}
 sub Vector   {Value->Package("Vector()")->new(@_)}

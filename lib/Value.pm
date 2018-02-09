@@ -157,6 +157,8 @@ $context = \$defaultContext;
 
 $$context->{precedence} = {
    'Number'   =>  0,
+   'RingOfIntegers' => 0.2,
+   'IdealInIntegers' => 0.3,
    'Real'     =>  1,
    'Infinity' =>  2,
    'Complex'  =>  3,
@@ -428,6 +430,7 @@ sub showClass {
   $class .= ' Number' if Value::classMatch($value,'Real','Complex');
   $class .= ' of Intervals' if Value::classMatch($value,'Union');
   $class = ($value eq '' ? 'Empty Value' : 'Word') if Value::classMatch($value,'String');
+  return 'an element of a cyclic ring' if Value::classMatch($value,'CyclicRing');
   return 'a Formula that returns '.showType($value->{tree}) if Value::isFormula($value);
   return 'an '.$class if $class =~ m/^[aeio]/i;
   return 'a '.$class;
@@ -650,6 +653,7 @@ sub Type {
 #  Some predefined types
 #
 %Type = (
+  cyclicringelement => Value::Type('CylicRingElement',2),
   number   => Value::Type('Number',1),
   complex  => Value::Type('Number',2),
   string   => Value::Type('String',1),
@@ -1097,7 +1101,11 @@ sub traceback {
 #
 
 END {
+  use Value::Integer;
   use Value::Real;
+  use Value::CyclicRingElement;
+  use Value::RingOfIntegers;
+  use Value::IdealInIntegers;
   use Value::Complex;
   use Value::Infinity;
   use Value::Point;
