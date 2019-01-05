@@ -1,18 +1,9 @@
-##########################################################################
-#
-#  Implements "fuzzy" real numbers (two are equal when they are "close enough")
-#
-
 package Value::Integer;
 my $pkg = 'Value::Integer';
 
 use strict; no strict "refs";
 our @ISA = qw(Value);
 
-#
-#  Check that the input is a real number or a formula
-#  or a string that evaluates to a number
-#
 sub new {
   my $self = shift; my $class = ref($self) || $self;
   my $context = (Value::isContext($_[0]) ? shift : $self->context);
